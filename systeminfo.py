@@ -2,7 +2,6 @@ import json
 import os
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import time
 
 # --- Funções --- #
 
@@ -121,9 +120,13 @@ def get_process_list():
     for entry in os.listdir("/proc"):
         if entry.isdigit():
             pid = int(entry)
-            with open(f"/proc/{pid}/comm") as f:
-                name = f.read().strip()
-            result.append({"pid": pid, "name": name})
+            try:
+                with open(f"/proc/{pid}/comm") as f:
+                    name = f.read().strip()
+                    result.append({"pid": pid, "name": name})
+            except FileNotFoundError:
+                print(f"Process {pid} does not have a name. FileNotFound. /proc/{pid}/comm")
+                continue
 
     return result  # lista de { "pid": int, "name": str }
 
@@ -185,7 +188,7 @@ def get_network_adapters():
                     ip = fields[1]
                     ip = ip.strip()
                     
-                    # Está em HEX, converte para X.X.X.X
+                    # Está em HEX (little-endian), converte para X.X.X.X
                     n = int(ip, 16)
                     b1 = (n)       & 0xFF
                     b2 = (n >> 8)  & 0xFF
