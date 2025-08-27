@@ -64,7 +64,26 @@ Você deve receber o payload JSON contendo as informações do sistema.
 
 # Capturas de tela (screenshots) das respostas obtidas pelo endpoint /status
 
-TO DO: quando todos finalizarem suas funções
+![Exemplo de resposta do endpoint /status](image1.png)
+
+![Exemplo de resposta do endpoint /status](image2.png)
+
+![Exemplo de resposta do endpoint /status](image3.png)
+
+Na máquina target rodamos um comando para produzir uso da CPU e poder capturar o CPU usage.
+
+O comando foi: `sh -c 'while :; do for i in $(seq 1 100000); do :; done; sleep 0.1; done'`
+
+Como pode ser observado na figura abaixo, foi possível capturar o uso da CPU:
+
+![Exemplo de resposta do endpoint /status](image4.png)
+
+Um exemplo na máquina do CodeSpaces:
+
+![Exemplo de resposta do endpoint /status](image5.png)
+
+![Exemplo de resposta do endpoint /status](image6.png)
+
 
 # Explicação de como cada informação exibida é obtida a partir de /proc e /sys
 
